@@ -212,6 +212,13 @@
     </div>
   </div>
 
+  <!-- ✅ NEW TEAM BUTTON -->
+  <div style="text-align:center; margin-top:30px;">
+    <button onclick="resetGame()" style="background:#ef4444;">
+      New Team
+    </button>
+  </div>
+
 </div>
 
 <script>
@@ -278,8 +285,6 @@ function loadTeamScore(){
 
 // FLAG CHECK
 window.checkFlag = function(type){
-  console.log("Checking:", type);
-
   if(!currentTeam){
     alert("Enter a team name first.");
     return;
@@ -288,11 +293,6 @@ window.checkFlag = function(type){
   const inputEl = document.getElementById(type+"Input");
   const result = document.getElementById(type+"Result");
   const timestampBox = document.getElementById(type+"Timestamp");
-
-  if(!inputEl || !result || !timestampBox){
-    console.error("Missing elements");
-    return;
-  }
 
   const input = inputEl.value.trim();
 
@@ -320,6 +320,34 @@ window.checkFlag = function(type){
     result.textContent = "Incorrect, keep trying!";
     result.className = "result error";
   }
+};
+
+// ✅ RESET FUNCTION
+window.resetGame = function(){
+  if(!confirm("Start a new team? This will erase all progress.")) return;
+
+  localStorage.clear();
+
+  score = 0;
+  solved = {};
+  currentTeam = "";
+
+  document.getElementById("score").textContent = "0";
+  document.getElementById("teamDisplay").textContent = "";
+
+  document.getElementById("teamBox").style.display = "block";
+  document.getElementById("teamName").value = "";
+
+  ["crypto","meta","stego","ps","quiz"].forEach(type => {
+    const input = document.getElementById(type+"Input");
+    const result = document.getElementById(type+"Result");
+    const timestamp = document.getElementById(type+"Timestamp");
+
+    input.value = "";
+    input.disabled = false;
+    result.textContent = "";
+    timestamp.textContent = "";
+  });
 };
 
 // INIT
