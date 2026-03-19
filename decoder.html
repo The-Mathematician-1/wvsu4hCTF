@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Base64 Decoder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px;
+      width: 300px;
+    }
+    #output {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Base64 Decoder</h1>
+
+  <input type="text" id="user_input" placeholder="Enter Base64 text here">
+  <br>
+  <button onclick="decodeBase64()">Decode</button>
+
+  <div id="output"></div>
+
+  <script>
+    function decodeBase64() {
+      const input = document.getElementById("user_input").value;
+
+      try {
+        // Decode Base64
+        const decoded = atob(input);
+
+        document.getElementById("output").innerText = "Decoded text: " + decoded;
+      } catch (error) {
+        document.getElementById("output").innerText = "Error decoding: " + error.message;
+      }
+    }
+  </script>
+
+</body>
+</html>
