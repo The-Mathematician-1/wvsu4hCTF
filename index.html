@@ -42,6 +42,57 @@
       margin-bottom: 10px;
     }
 
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: non;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 8px;
+      background: #22c55e;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+     .result {
+      margin-top: 8px;
+      font-weight: bold;
+    }
+
+    .success {
+      color: #4ade80;
+    }
+
+    .error {
+      color: #f87171;
+    }
+
+    .score {
+      text-align: center;
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      color: #fde68a;
+    }
+
+    .timestamp {
+      margin-top: 6px;
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
+    .team-box {
+      margin-bottom: 20px;
+      background: #1e293b;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
     .hint {
       color: #cbd5e1;
       margin-bottom: 10px;
@@ -71,11 +122,43 @@
 </head>
 <body>
 
+<div class="card">
+  <div class="title">👥 Team Info</div>
+  <input id="teamName" placeholder="Enter your team name">
+  <button onclick="saveTeamName()">Save Team</button>
+  <div id="teamDisplay" style="margin-top:8px;"></div>
+</div>
+
+<script>
+let currentTeam = localStorage.getItem("teamName") || "";
+
+function saveTeamName() {
+  const name = document.getElementById("teamName").value.trim();
+  if (!name) {
+    alert("Enter a team name first");
+    return;
+  }
+  localStorage.setItem("teamName", name);
+  currentTeam = name;
+  updateTeamDisplay();
+}
+
+function updateTeamDisplay() {
+  if(currentTeam){
+    document.getElementById("teamDisplay").textContent = "Current team: " + currentTeam;
+  }
+}
+
+// Call on load
+updateTeamDisplay();
+</script>
+  
 <div class="container">
 
   <h1>Investigation Portal</h1>
   <p class="subtitle">You are inside the attacker's toolkit. Analyze each artifact.</p>
 
+  <div class="score">Score: <span id="score">0</span></div>
   <!-- ================= CRYPTOGRAPHY ================= -->
   <div class="card">
     <div class="title">🔐 Cryptography Challenge</div>
