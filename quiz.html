@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux Commands Quiz</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: #22c55e;
+  color: black;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #16a34a;
+}
+
+input {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  margin: 10px;
+}
+
+.feedback {
+  margin-top: 10px;
+  font-weight: bold;
+}
+</style>
+</head>
+<body>
+
+<div class="container" id="app">
+  <h1>💻 Linux Quiz</h1>
+  <div id="start">
+    <p>Enter your name:</p>
+    <input type="text" id="name" placeholder="Your name">
+    <button onclick="startQuiz()">Start Quiz</button>
+  </div>
+</div>
+
+<script>
+const quiz = [
+  { q: "Which command lists files?", a: shuffle(["ls", "touch", "mkdir", "rm"]), correct: "ls" },
+  { q: "Which command creates a file?", a: shuffle(["touch", "cp", "mv", "ls"]), correct: "touch" },
+  { q: "Which command creates a folder?", a: shuffle(["mkdir", "rm", "ls", "echo"]), correct: "mkdir" },
+  { q: "Which command deletes a file?", a: shuffle(["rm", "cp", "mv", "touch"]), correct: "rm" },
+  { q: "Which command copies a file?", a: shuffle(["cp", "mv", "rm", "ls"]), correct: "cp" },
+  { q: "Which command moves or renames a file?", a: shuffle(["mv", "cp", "ls", "echo"]), correct: "mv" },
+  { q: "Which command prints text?", a: shuffle(["echo", "ls", "rm", "mkdir"]), correct: "echo" },
+  { q: "Which command generates random numbers?", a: shuffle(["echo $RANDOM", "ls", "touch", "cp"]), correct: "echo $RANDOM" },
+  { q: "Which command clears the screen?", a: shuffle(["clear", "rm", "ls", "mv"]), correct: "clear" },
+  { q: "Which command shows random encrypted-like data?", a: shuffle(["cat /dev/urandom", "ls", "echo", "mkdir"]), correct: "cat /dev/urandom" }
+];
+
+// shuffle function to randomize options
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+let current = 0;
+let score = 0;
+let playerName = "";
+
+function startQuiz() {
+  const nameInput = document.getElementById("name").value.trim();
+  if (!nameInput) {
+    alert("Please enter your name!");
+    return;
+  }
+  playerName = nameInput;
+  loadQuestion();
+}
+
+function loadQuestion() {
+  const app = document.getElementById("app");
+
+  if (current >= quiz.length) {
+    app.innerHTML = `<h1>🎉 Finished!</h1><h2>${playerName}, Your Score: ${score}/10</h2><h3>😎 Congratulations, you are now a hacker!</h3>`;
+    return;
+  }
+
+  app.innerHTML = `
+    <h2>${quiz[current].q}</h2>
+    <div id="answers"></div>
+    <p>Score: ${score}</p>
+    <p class="feedback" id="feedback"></p>
+  `;
+
+  const answersDiv = document.getElementById("answers");
+
+  quiz[current].a.forEach(ans => {
+    const btn = document.createElement("button");
+    btn.innerText = ans;
+    btn.onclick = () => checkAnswer(ans);
+    answersDiv.appendChild(btn);
+  });
+}
+
+function checkAnswer(ans) {
+  const feedback = document.getElementById("feedback");
+
+  if (ans === quiz[current].correct) {
+    score++;
+    feedback.innerText = "✅ Correct!";
+    setTimeout(() => {
+      current++;
+      loadQuestion();
+    }, 800);
+  } else {
+    feedback.innerText = "❌ Wrong! Try again.";
+  }
+}
+</script>
+
+</body>
+</html>
