@@ -176,7 +176,10 @@ updateTeamDisplay();
     </p>
 
     <div class="flag-box">
-      Flag: __________________________
+      <input id="cryptoInput" placeholder="Enter flag">
+    <button onclick="checkFlag('crypto')">Submit</button>
+    <div id="cryptoResult" class="result"></div>
+    <div id="cryptoTimestamp" class="timestamp"></div>
     </div>
   </div>
 
