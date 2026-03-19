@@ -47,7 +47,7 @@
       padding: 8px;
       margin-top: 10px;
       border-radius: 5px;
-      border: non;
+      border: none;
     }
 
     button {
@@ -60,7 +60,7 @@
       cursor: pointer;
     }
 
-     .result {
+    .result {
       margin-top: 8px;
       font-weight: bold;
     }
@@ -122,150 +122,93 @@
 </head>
 <body>
 
-<div class="card">
-  <div class="title">👥 Team Info</div>
-  <input id="teamName" placeholder="Enter your team name">
-  <button onclick="saveTeamName()">Save Team</button>
-  <div id="teamDisplay" style="margin-top:8px;"></div>
-</div>
-
-<script>
-let currentTeam = localStorage.getItem("teamName") || "";
-
-function saveTeamName() {
-  const name = document.getElementById("teamName").value.trim();
-  if (!name) {
-    alert("Enter a team name first");
-    return;
-  }
-  localStorage.setItem("teamName", name);
-  currentTeam = name;
-  updateTeamDisplay();
-}
-
-function updateTeamDisplay() {
-  if(currentTeam){
-    document.getElementById("teamDisplay").textContent = "Current team: " + currentTeam;
-  }
-}
-
-// Call on load
-updateTeamDisplay();
-</script>
-  
 <div class="container">
 
   <h1>Investigation Portal</h1>
   <p class="subtitle">You are inside the attacker's toolkit. Analyze each artifact.</p>
 
+  <!-- TEAM -->
+  <div class="team-box">
+    <div class="title">👥 Team Info</div>
+    <input id="teamName" placeholder="Enter your team name">
+    <button onclick="saveTeamName()">Save Team</button>
+    <div id="teamDisplay" style="margin-top:8px;"></div>
+  </div>
+
   <div class="score">Score: <span id="score">0</span></div>
-  <!-- ================= CRYPTOGRAPHY ================= -->
+
+  <!-- CRYPTO -->
   <div class="card">
     <div class="title">🔐 Cryptography Challenge</div>
-    <div class="hint">
-      Intercepted communication was encoded. Decode it to reveal the flag.
-    </div>
-
-    <p><strong>Ciphertext:</strong></p>
+    <div class="hint">Decode the message to reveal the flag.</div>
     <code>d3ZzdUNURnt5MHVfZDNjMGQzZF9teV9tM3NzQGczfQ==</code>
-
-    <p>
-      🔗 Use your decoder:
-      <a href="decoder.html" target="_blank">Open Base64 Decoder</a>
-      
-    </p>
+    <br><br>
+    <a href="decoder.html" target="_blank">Open Base64 Decoder</a>
 
     <div class="flag-box">
       <input id="cryptoInput" placeholder="Enter flag">
-    <button onclick="checkFlag('crypto')">Submit</button>
-    <div id="cryptoResult" class="result"></div>
-    <div id="cryptoTimestamp" class="timestamp"></div>
+      <button onclick="checkFlag('crypto')">Submit</button>
+      <div id="cryptoResult" class="result"></div>
+      <div id="cryptoTimestamp" class="timestamp"></div>
     </div>
   </div>
 
-  <!-- ================= METADATA ================= -->
+  <!-- METADATA -->
   <div class="card">
     <div class="title">🧾 Metadata Challenge</div>
-    <div class="hint">
-      A file was recovered from the attacker. Important information may be hidden in its metadata.
-    </div>
-
-    <p>
-      📥 Download file:
-      <a href="REPLACE_WITH_FILE_LINK" target="_blank">Download Document</a>
-    </p>
+    <div class="hint">Check file metadata for hidden info.</div>
+    <a href="REPLACE_WITH_FILE_LINK" target="_blank">Download File</a>
 
     <div class="flag-box">
       <input id="metaInput" placeholder="Enter flag">
-    <button onclick="checkFlag('meta')">Submit</button>
-    <div id="metaResult" class="result"></div>
-    <div id="metaTimestamp" class="timestamp"></div>
+      <button onclick="checkFlag('meta')">Submit</button>
+      <div id="metaResult" class="result"></div>
+      <div id="metaTimestamp" class="timestamp"></div>
     </div>
   </div>
 
-  <!-- ================= STEGANOGRAPHY ================= -->
+  <!-- STEGO -->
   <div class="card">
     <div class="title">🖼️ Steganography Challenge</div>
-    <div class="hint">
-      The attacker hid information inside an image. Extract the hidden message.
-    </div>
-
-    <p>
-      📥 Download image:
-      <a href="REPLACE_WITH_IMAGE_LINK" target="_blank">Download Image</a>
-    </p>
+    <div class="hint">Extract hidden data from the image.</div>
+    <a href="REPLACE_WITH_IMAGE_LINK" target="_blank">Download Image</a>
 
     <div class="flag-box">
       <input id="stegoInput" placeholder="Enter flag">
-    <button onclick="checkFlag('stego')">Submit</button>
-    <div id="stegoResult" class="result"></div>
-    <div id="stegoTimestamp" class="timestamp"></div>
+      <button onclick="checkFlag('stego')">Submit</button>
+      <div id="stegoResult" class="result"></div>
+      <div id="stegoTimestamp" class="timestamp"></div>
     </div>
   </div>
 
-  <!-- ================= POWERSHELL ================= -->
+  <!-- POWERSHELL -->
   <div class="card">
     <div class="title">💻 PowerShell Challenge</div>
-    <div class="hint">
-      The attacker used PowerShell to locate sensitive data. Use the correct command to find the flag.
-    </div>
-
-    <p>
-      📥 Download log file:
-      <a href="REPLACE_WITH_LOG_FILE" target="_blank">Download File</a>
-    </p>
-
-    <p><strong>Hint:</strong> Use <code>Select-String</code></p>
+    <div class="hint">Use Select-String to find the flag.</div>
+    <a href="REPLACE_WITH_LOG_FILE" target="_blank">Download File</a>
 
     <div class="flag-box">
       <input id="psInput" placeholder="Enter flag">
-    <button onclick="checkFlag('ps')">Submit</button>
-    <div id="psResult" class="result"></div>
-    <div id="psTimestamp" class="timestamp"></div>
+      <button onclick="checkFlag('ps')">Submit</button>
+      <div id="psResult" class="result"></div>
+      <div id="psTimestamp" class="timestamp"></div>
     </div>
   </div>
 
-  <!-- ================= QUIZ ================= -->
+  <!-- QUIZ -->
   <div class="card">
     <div class="title">🧠 Cybersecurity Quiz</div>
-    <div class="hint">
-      Test your knowledge of how this attack could have been prevented.
-    </div>
-
-    <p>
-      📝 Take quiz:
-      <a href="REPLACE_WITH_QUIZ_LINK" target="_blank">Start Quiz</a>
-    </p>
+    <a href="REPLACE_WITH_QUIZ_LINK" target="_blank">Start Quiz</a>
 
     <div class="flag-box">
       <input id="quizInput" placeholder="Enter completion code">
-    <button onclick="checkFlag('quiz')">Submit</button>
-    <div id="quizResult" class="result"></div>
-    <div id="quizTimestamp" class="timestamp"></div>
+      <button onclick="checkFlag('quiz')">Submit</button>
+      <div id="quizResult" class="result"></div>
+      <div id="quizTimestamp" class="timestamp"></div>
     </div>
 
     <div class="warning">
-      * Full credit may be awarded for completion.
+      * Full credit for completion
     </div>
   </div>
 
@@ -298,22 +241,21 @@ function saveTeamName(){
 
 function updateTeamDisplay(){
   if(currentTeam){
-    document.getElementById("teamDisplay").textContent = "Current team: " + currentTeam;
+    document.getElementById("teamDisplay").textContent =
+      "Current team: " + currentTeam;
   }
 }
 
-// Track team score in localStorage
 function loadTeamScore(){
   if(currentTeam){
-    const teamScore = parseInt(localStorage.getItem("score_" + currentTeam)) || 0;
-    score = teamScore;
+    score = parseInt(localStorage.getItem("score_" + currentTeam)) || 0;
     document.getElementById("score").textContent = score;
 
-    // Load timestamps if they exist
     ["crypto","meta","stego","ps","quiz"].forEach(ch => {
       const ts = localStorage.getItem(currentTeam + "_ts_" + ch);
       if(ts){
-        document.getElementById(ch+"Timestamp").textContent = "Completed on " + ts;
+        document.getElementById(ch+"Timestamp").textContent =
+          "Completed on " + ts;
         solved[ch] = true;
       }
     });
@@ -332,13 +274,13 @@ function checkFlag(type){
 
   if(solved[type]){
     result.textContent = "Already solved.";
-    result.className = "result";
     return;
   }
 
   if(input === flags[type] || (type === "quiz" && input.length > 0)){
     score += 10;
     solved[type] = true;
+
     document.getElementById("score").textContent = score;
     localStorage.setItem("score_" + currentTeam, score);
 
@@ -354,10 +296,11 @@ function checkFlag(type){
   }
 }
 
-// Load on page start
-updateTeamDisplay();
-loadTeamScore();
+window.onload = function(){
+  updateTeamDisplay();
+  loadTeamScore();
+};
 </script>
-  
+
 </body>
 </html>
