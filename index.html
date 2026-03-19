@@ -196,7 +196,10 @@ updateTeamDisplay();
     </p>
 
     <div class="flag-box">
-      Flag: __________________________
+      <input id="metaInput" placeholder="Enter flag">
+    <button onclick="checkFlag('meta')">Submit</button>
+    <div id="metaResult" class="result"></div>
+    <div id="metaTimestamp" class="timestamp"></div>
     </div>
   </div>
 
@@ -213,7 +216,10 @@ updateTeamDisplay();
     </p>
 
     <div class="flag-box">
-      Flag: __________________________
+      <input id="stegoInput" placeholder="Enter flag">
+    <button onclick="checkFlag('stego')">Submit</button>
+    <div id="stegoResult" class="result"></div>
+    <div id="stegoTimestamp" class="timestamp"></div>
     </div>
   </div>
 
@@ -232,7 +238,10 @@ updateTeamDisplay();
     <p><strong>Hint:</strong> Use <code>Select-String</code></p>
 
     <div class="flag-box">
-      Flag: __________________________
+      <input id="psInput" placeholder="Enter flag">
+    <button onclick="checkFlag('ps')">Submit</button>
+    <div id="psResult" class="result"></div>
+    <div id="psTimestamp" class="timestamp"></div>
     </div>
   </div>
 
@@ -249,7 +258,10 @@ updateTeamDisplay();
     </p>
 
     <div class="flag-box">
-      Completion: ____________________
+      <input id="quizInput" placeholder="Enter completion code">
+    <button onclick="checkFlag('quiz')">Submit</button>
+    <div id="quizResult" class="result"></div>
+    <div id="quizTimestamp" class="timestamp"></div>
     </div>
 
     <div class="warning">
@@ -259,5 +271,93 @@ updateTeamDisplay();
 
 </div>
 
+<script>
+let score = 0;
+let solved = {};
+let currentTeam = localStorage.getItem("teamName") || "";
+
+const flags = {
+  crypto: "wvsuCTF{y0u_d3c0d3d_my_m3ss@g3}",
+  meta: "REPLACE_META_FLAG",
+  stego: "REPLACE_STEGO_FLAG",
+  ps: "REPLACE_PS_FLAG",
+  quiz: "ANY"
+};
+
+function saveTeamName(){
+  const name = document.getElementById("teamName").value.trim();
+  if(!name){
+    alert("Enter a team name first");
+    return;
+  }
+  localStorage.setItem("teamName", name);
+  currentTeam = name;
+  updateTeamDisplay();
+  loadTeamScore();
+}
+
+function updateTeamDisplay(){
+  if(currentTeam){
+    document.getElementById("teamDisplay").textContent = "Current team: " + currentTeam;
+  }
+}
+
+// Track team score in localStorage
+function loadTeamScore(){
+  if(currentTeam){
+    const teamScore = parseInt(localStorage.getItem("score_" + currentTeam)) || 0;
+    score = teamScore;
+    document.getElementById("score").textContent = score;
+
+    // Load timestamps if they exist
+    ["crypto","meta","stego","ps","quiz"].forEach(ch => {
+      const ts = localStorage.getItem(currentTeam + "_ts_" + ch);
+      if(ts){
+        document.getElementById(ch+"Timestamp").textContent = "Completed on " + ts;
+        solved[ch] = true;
+      }
+    });
+  }
+}
+
+function checkFlag(type){
+  const input = document.getElementById(type+"Input").value.trim();
+  const result = document.getElementById(type+"Result");
+  const timestampBox = document.getElementById(type+"Timestamp");
+
+  if(!currentTeam){
+    alert("Enter a team name first.");
+    return;
+  }
+
+  if(solved[type]){
+    result.textContent = "Already solved.";
+    result.className = "result";
+    return;
+  }
+
+  if(input === flags[type] || (type === "quiz" && input.length > 0)){
+    score += 10;
+    solved[type] = true;
+    document.getElementById("score").textContent = score;
+    localStorage.setItem("score_" + currentTeam, score);
+
+    const now = new Date().toLocaleString();
+    timestampBox.textContent = "Completed on " + now;
+    localStorage.setItem(currentTeam + "_ts_" + type, now);
+
+    result.textContent = "Correct! +10 points";
+    result.className = "result success";
+  } else {
+    result.textContent = "Incorrect. Try again.";
+    result.className = "result error";
+  }
+}
+
+// Load on page start
+updateTeamDisplay();
+loadTeamScore();
+</script>
+  
 </body>
 </html>
