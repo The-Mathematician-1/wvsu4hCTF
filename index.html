@@ -128,14 +128,20 @@
   <p class="subtitle">You are inside the attacker's toolkit. Analyze each artifact.</p>
 
   <!-- TEAM -->
-  <div class="team-box">
-    <div class="title">👥 Team Info</div>
-    <input id="teamName" placeholder="Enter your team name">
-    <button onclick="saveTeamName()">Save Team</button>
-    <div id="teamDisplay" style="margin-top:8px;"></div>
-  </div>
+<div class="team-box" id="teamBox">
+  <div class="title">👥 Team Info</div>
+  <input id="teamName" placeholder="Enter your team name">
+  <button onclick="saveTeamName()">Save Team</button>
+</div>
 
-  <div class="score">Score: <span id="score">0</span></div>
+<div id="teamDisplay" style="
+  text-align:center;
+  font-size:1.5rem;
+  color:#fde68a;
+  margin-bottom:10px;
+"></div>
+
+<div class="score">Score: <span id="score">0</span></div>
 
   <!-- CRYPTO -->
   <div class="card">
@@ -221,9 +227,9 @@ let currentTeam = localStorage.getItem("teamName") || "";
 
 const flags = {
   crypto: "wvsuCTF{y0u_d3c0d3d_my_m3ss@g3}",
-  meta: "REPLACE_META_FLAG",
-  stego: "REPLACE_STEGO_FLAG",
-  ps: "REPLACE_PS_FLAG",
+  meta: "test123",
+  stego: "hiddenflag",
+  ps: "powershellflag",
   quiz: "ANY"
 };
 
@@ -233,16 +239,26 @@ function saveTeamName(){
     alert("Enter a team name first");
     return;
   }
+
   localStorage.setItem("teamName", name);
   currentTeam = name;
+
+  // Hide input box
+  document.getElementById("teamBox").style.display = "none";
+
   updateTeamDisplay();
   loadTeamScore();
 }
 
 function updateTeamDisplay(){
+  const el = document.getElementById("teamDisplay");
+
   if(currentTeam){
-    document.getElementById("teamDisplay").textContent =
-      "Current team: " + currentTeam;
+    el.textContent = "Team: " + currentTeam;
+
+    // Hide input if already saved
+    const box = document.getElementById("teamBox");
+    if(box) box.style.display = "none";
   }
 }
 
