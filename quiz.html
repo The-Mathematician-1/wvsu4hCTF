@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Linux Commands Quiz</title>
+<title>Powershell Commands Quiz</title>
 <style>
 body {
   font-family: Arial, sans-serif;
@@ -52,26 +52,26 @@ input {
 <body>
 
 <div class="container" id="app">
-  <h1>💻 Linux Quiz</h1>
+  <h1>💻 Powershell Quiz</h1>
   <div id="start">
-    <p>Enter your name:</p>
-    <input type="text" id="name" placeholder="Your name">
+    <p>Enter your team name:</p>
+    <input type="text" id="name" placeholder="Your team name">
     <button onclick="startQuiz()">Start Quiz</button>
   </div>
 </div>
 
 <script>
 const quiz = [
-  { q: "Which command lists files?", a: shuffle(["ls", "touch", "mkdir", "rm"]), correct: "ls" },
-  { q: "Which command creates a file?", a: shuffle(["touch", "cp", "mv", "ls"]), correct: "touch" },
-  { q: "Which command creates a folder?", a: shuffle(["mkdir", "rm", "ls", "echo"]), correct: "mkdir" },
-  { q: "Which command deletes a file?", a: shuffle(["rm", "cp", "mv", "touch"]), correct: "rm" },
-  { q: "Which command copies a file?", a: shuffle(["cp", "mv", "rm", "ls"]), correct: "cp" },
-  { q: "Which command moves or renames a file?", a: shuffle(["mv", "cp", "ls", "echo"]), correct: "mv" },
-  { q: "Which command prints text?", a: shuffle(["echo", "ls", "rm", "mkdir"]), correct: "echo" },
-  { q: "Which command generates random numbers?", a: shuffle(["echo $RANDOM", "ls", "touch", "cp"]), correct: "echo $RANDOM" },
-  { q: "Which command clears the screen?", a: shuffle(["clear", "rm", "ls", "mv"]), correct: "clear" },
-  { q: "Which command shows random encrypted-like data?", a: shuffle(["cat /dev/urandom", "ls", "echo", "mkdir"]), correct: "cat /dev/urandom" }
+  { q: "Which command lists files?", a: shuffle(["Get-ChildItem", "New-Item", "New-Item -ItemType Directory", "Remove-Item"]), correct: "Get-ChildItem" },
+{ q: "Which command creates a file?", a: shuffle(["New-Item", "Copy-Item", "Move-Item", "Get-ChildItem"]), correct: "New-Item" },
+{ q: "Which command creates a folder?", a: shuffle(["New-Item -ItemType Directory", "Remove-Item", "Get-ChildItem", "Write-Output"]), correct: "New-Item -ItemType Directory" },
+{ q: "Which command deletes a file?", a: shuffle(["Remove-Item", "Copy-Item", "Move-Item", "New-Item"]), correct: "Remove-Item" },
+{ q: "Which command copies a file?", a: shuffle(["Copy-Item", "Move-Item", "Remove-Item", "Get-ChildItem"]), correct: "Copy-Item" },
+{ q: "Which command moves or renames a file?", a: shuffle(["Move-Item", "Copy-Item", "Get-ChildItem", "Write-Output"]), correct: "Move-Item" },
+{ q: "Which command prints text?", a: shuffle(["Write-Output", "Get-ChildItem", "Remove-Item", "New-Item"]), correct: "Write-Output" },
+{ q: "Which command generates random numbers?", a: shuffle(["Get-Random", "Get-ChildItem", "New-Item", "Copy-Item"]), correct: "Get-Random" },
+{ q: "Which command clears the screen?", a: shuffle(["Clear", "Remove-Item", "Get-ChildItem", "Move-Item"]), correct: "Clear" },
+{ q: "Which command searches for patterns in strings?", a: shuffle(["Select-String", "Get-ChildItem", "Write-Output", "New-Item"]), correct: "Select-String" }
 ];
 
 // shuffle function to randomize options
@@ -86,7 +86,7 @@ let playerName = "";
 function startQuiz() {
   const nameInput = document.getElementById("name").value.trim();
   if (!nameInput) {
-    alert("Please enter your name!");
+    alert("Please enter your team name!");
     return;
   }
   playerName = nameInput;
@@ -97,9 +97,16 @@ function loadQuestion() {
   const app = document.getElementById("app");
 
   if (current >= quiz.length) {
-    app.innerHTML = `<h1>🎉 Finished!</h1><h2>${playerName}, Your Score: ${score}/10</h2><h3>😎 Congratulations, you are now a hacker!</h3>`;
-    return;
-  }
+  app.innerHTML = `
+    <h1>🎉 Finished!</h1>
+    <h2>${playerName}, Your Score: ${score}/10</h2>
+    <h3>😎 Congratulations, you are now a hacker!</h3>
+    <p style="color:#4ade80; font-weight:bold; margin-top:15px;">
+      Flag: wvsuCTF{quiz_master_achieved}
+    </p>
+  `;
+  return;
+}
 
   app.innerHTML = `
     <h2>${quiz[current].q}</h2>
