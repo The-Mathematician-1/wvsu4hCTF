@@ -153,19 +153,28 @@
     </div>
   </div>
 
-  <!-- METADATA -->
-  <div class="card">
-    <div class="title">🧾 Metadata Challenge</div>
-    <div class="hint">Check file metadata for hidden info. This may be a vulnerability that the hacker found and exploited.</div>
-    <a href="REPLACE_WITH_FILE_LINK" target="_blank">Download File</a>
-
-    <div class="flag-box">
-      <input id="metaInput" placeholder="Enter flag">
-      <button onclick="checkFlag('meta')">Submit</button>
-      <div id="metaResult" class="result"></div>
-      <div id="metaTimestamp" class="timestamp"></div>
-    </div>
+  <!-- Binary To text -->
+ <div class="card">
+  <div class="title">💻 Binary Challenge</div>
+  <div class="hint">
+    Decode the binary below to find the hidden message.
   </div>
+
+  <div style="margin: 10px 0; font-weight: bold;">
+    01001000 01100101 01101100 01101100 01101111
+  </div>
+
+  <a href="https://www.rapidtables.com/convert/number/binary-to-ascii.html" target="_blank">
+    Use this tool to decode
+  </a>
+
+  <div class="flag-box">
+    <input id="binaryInput" placeholder="Enter decoded message">
+    <button onclick="checkFlag('binary')">Submit</button>
+    <div id="binaryResult" class="result"></div>
+    <div id="binaryTimestamp" class="timestamp"></div>
+  </div>
+</div>
 
   <!-- STEGO -->
   <div class="card">
