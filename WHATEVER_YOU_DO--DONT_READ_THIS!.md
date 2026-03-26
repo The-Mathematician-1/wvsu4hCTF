@@ -25,7 +25,7 @@ Links to my toolkit of DESTRUCTION:
 Windows Powershell (Commands -- automate tasks and manage computer objects.)
 
 * &#x09;Search for "powershell" in the computer search bar.
-* be sure to format as Select-String -Path "INSERT PATHWAY" HERE -Pattern INSERT "WHATEVER YOU WANT TO SEARCH FOR HERE"
+* be sure to format as: Select-String -Path "INSERT PATHWAY" HERE -Pattern "INSERT WHATEVER YOU WANT TO SEARCH FOR HERE"
 * remember to find pathway, I just need to right-click the file...
 
 
